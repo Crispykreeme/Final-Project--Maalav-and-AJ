@@ -17,3 +17,28 @@ def county_consumption(counties: list[dict], county_name: str)-> float:
     return total
 
 print(county_consumption(data.counties,"Los Angeles County"))
+
+def commercial_usage(counties:list[dict], county_name: str)-> Optional[float]:
+    total = 0
+    for electric in counties:
+        if electric["county_name"].lower() == county_name.lower():
+            try:
+                total += electric["commercial_consumption_mwh"]/366
+            except KeyError:
+                print("Wrong Input. Try again.")
+            return round(total,1)
+    return None
+
+def industrial_usage(counties:list[dict], county_name: str)-> Optional[float]:
+    total = 0
+    for electric in counties:
+        if electric["county_name"].lower() == county_name.lower():
+            try:
+                total += electric["ind_consumption_mwh"]/366
+            except KeyError:
+                print("Wrong Input. Try again.")
+            return round(total,1)
+    return None
+
+print("The average daily electricity usage is",commercial_usage(data.counties,"Los Angeles County"), "Megawatt-Hours (MWh).")
+
